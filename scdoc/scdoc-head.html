@@ -1,0 +1,67 @@
+  <link href="./scdoc/css/fontello.css" rel="stylesheet">
+  <link rel="stylesheet" href="./scdoc/scdoc.css">
+  <script language="javascript" type="text/javascript" src="./scdoc/jquery-1.10.2.min.js"></script>
+  <script language="javascript" type="text/javascript" src="./scdoc/jquery.tableofcontents.js"></script>
+  <script language="javascript" type="text/javascript">
+  	$( document ).ready(function() {
+  	  // Table of contents
+  	  $('#toc').tableofcontents();
+  	  // Add header number to internal links
+  	  $('.header-section-number').each(function() {
+			  num = $(this).text();
+			  id = $(this).parent().attr('id');
+			  $("section a[href='#"+id+"']").append('&nbsp;'+num);
+			});
+  	  // Identifying closing <pre>
+  	  $('pre').next().not('pre').prev().addClass('last'); // Last <pre> of each group pf <pre>
+  	  $('pre').last().addClass('last'); // If the last one is not followed bay anything
+  	  // Navigation button
+  	  $(".trigger").click(function(){
+				$("#toc").toggle(400);
+				return false;
+			});
+			$("#toc a").click(function(){
+				$("#toc").hide(400);
+			});
+			// Figures
+			prefixFig = $('meta[name="prefix-fig"]').attr('content');
+			if (typeof prefixFig === "undefined") prefixFig = "Figure";
+			$("figure").each(function( index ) {
+				if ($(this).children("figcaption").length > 0)
+					$(this).children("figcaption:first").prepend('<span class="figure-number">'+prefixFig+' '+(index+1)+'.</span> ');
+				else
+					$(this).append($("<figcaption>").append('<span class="figure-number">'.prefixFig+' '+(index+1)+'</span>'));
+				if ($(this).attr('id') !== undefined)
+					$('section a[href="#'+$(this).attr('id')+'"]').append('&nbsp;' + (index+1));
+			});
+			$('#tof').tableofcontents({header_tags: ['figure'], prefix: 'fig_'});
+			if ($("#tof li").length == 0) $("#tof").remove();
+			// Tables
+			prefixTable = $('meta[name="prefix-table"]').attr('content');
+			if (typeof prefixTable === "undefined") prefixTable = "Table";
+			$("table").each(function( index ) {
+        $(this).attr("border",0).removeAttr("frame").removeAttr("rules"); // Cleaning tables produced by tabular or xtable
+				if ($(this).children("caption").length > 0)
+					$(this).children("caption:first").prepend('<span class="table-number">'+prefixTable+' '+(index+1)+'.</span> ');
+				else
+					$(this).prepend($("<caption>").append('<span class="table-number">'+prefixTable+' '+(index+1)+'</span>'));
+				if ($(this).attr('id') !== undefined)
+					$('section a[href="#'+$(this).attr('id')+'"]').append('&nbsp;' + (index+1));
+			});
+			$('#tot').tableofcontents({header_tags: ['table'], prefix: 'table_'});
+			if ($("#tot li").length == 0) $("#tot").remove();
+			// Footnotes
+			$("a.footnoteRef").after('<span class="sidenote"></span>');
+			$("span.sidenote").each(function() {
+				note = $(this).prev('a').attr('href');
+				num = $(this).prev('a').text();
+				$(this).append( $(note).html() );
+				$(this).children('p:first').prepend('<span class="noteNum">'+num+'. </span>');
+			});
+			$(".sidenote a[href^='#fnref']").remove();
+      // Removing zero-widt space in code examples
+      $("code").html(function(i, h) {
+        return h.replace('\u200B', '');
+      });
+  	});
+  </script>

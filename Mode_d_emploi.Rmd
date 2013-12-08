@@ -1,0 +1,487 @@
+---
+lang: 'fr'
+title:  "scdoc : rédaction d'un document long sous RStudio"
+subtitle: "Mode d'emploi"
+author:
+  - Joseph Larmarange
+date: '`r format(Sys.time(), "%Y-%m-%d")`'
+tags: R, RStudio, knitr, pandoc, Prince XML
+toc-title: 'Sommaire'
+tof-title: 'Liste des figures'
+prefix-fig: 'Figure'
+tot-title: 'Liste des tables'
+prefix-table: 'Table'
+pdf: 'prince'
+abstract: |
+  *scdoc* permet de combiner la puissance de divers outils pour rédiger un document
+  long directement dans *R Studio* en utilisant le format *markdown*. Par rapport
+  au support natif du format *R markdown*, `scdoc` ajoute :
+  
+  - la numérotation automatique des titres, tables et figures ;
+  - la génération d'une table des matières, d'une liste des tables et d'une liste des figures ;
+  - l'ajout automatique des numéros de titre, table ou figure aux liens internes ;
+  - amélioration de la ponctuation (limitée aux règles anglaises) ;
+  - la génération d'un fichier HTML avec une mise en forme moderne, incluant un 
+  accès facilité à la table des matières et aux notes de bas de page ;
+  - la génération d'une version PDF avec une mise en forme classique 
+  et l'ajout des numéros de page aux liens internes.
+...
+
+```{r configuration, echo=FALSE, message=FALSE}
+opts_chunk$set(
+  comment = NA, # Ne pas afficher ## devant les résultats
+  dev = "svg", # Graphiques au format SVG
+  cache = TRUE, # Mise en cache
+  fig.width = 8, fig.height = 6 # Taille par défault des figures
+)
+options(
+  knitr.table.format = "html", # Tables directement au format HTML (kable)
+  xtable.type = "html", # Tables en HTML (xtable)
+  xtable.caption.placement = "top" # Titre avant le tableau (xtable)
+)
+knit_hooks$set(plot = hook_plot_html) # Figures directement au format HTML
+windowsFonts(sans=windowsFont("Open Sans")) # Police par défaut des graphiques
+```
+
+# À propos de *scdoc*
+
+*scdoc* est dévelopé par Joseph Larmarange sur GitHub<i class="icon-github-circled"></i> :<br />
+<https://github.com/larmarange/scdoc>
+
+Pour toute question, rapport de bug, proposition d'amélioration :<br />
+<https://github.com/larmarange/scdoc/issues>
+
+# Pré-requis
+
+## R Studio
+
+*scdoc* nécessite que plusieurs outils soient installés sur votre système.
+En premier lieu, *scdoc* s'utilise dans la cadre d'un projet *R* géré avec 
+l'interface de développement *R Studio*. Cette dernière, disponibles pour Windows
+Mac et Linux, peut être téléchargée à <http://www.rstudio.com/ide/>.
+
+## pandoc
+
+La transformation du fichier *markdown* au format *HTML* est réalisée avec *pandoc*.
+Ce dernier peut être téléchargé à <http://johnmacfarlane.net/pandoc/installing.html>.
+Il importe que *pandoc* soit accessible en ligne de commande^[Sous Windows, vous devrez
+peut-être ajouter manuellement le chemin de *pandoc* à la variable `path` du système.
+Pour vérifier si *pandoc* est accessible, ouvrez l'*invite de commande* Windows 
+et entrez la commande `pandoc --help`. Si un message vous informe que `pandoc`
+n'est pas une commande reconnue, recherchez le répertoire où est situé le fichier
+`pandoc.exe` (probablement quelque chose comme `C:\Users\mon_nom\AppData\Local\Pandoc\`).
+Ajouter ce répertoire au `path` Windows (voir <http://sametmax.com/ajouter-un-chemin-a-la-variable-denvironnement-path-sous-windows/>).]. ATTENTION : en raison de certains changement dans *pandoc*, veuillez
+utiliser une version récente (≥ 1.12).
+
+## Prince XML
+
+Pour générer un fichier PDF^[La génération d'un PDF est optionnelle, voir 
+[section](#params).], *Prince XML* doit être installé sur votre ordinateur.
+Il peut être téléchargé à <http://www.princexml.com/download/>. Comme pour *pandoc*,
+*Prince XML* doit être accessible en ligne de commande^[Sous Windows, le répertoire
+`C:\Program Files (x86)\Prince\Engine\bin` devra être ajouté à la variable 
+d'environnement `path`.].
+
+# Installation et utilisation
+
+## Installation manuelle
+
+1. Téléchargez la dernière version de *scdoc* sur Github<i class="icon-github-circled"></i> 
+   (<https://github.com/larmarange/scdoc/archive/master.zip>).
+2. Dézippez l'archive.
+3. Copiez le sous-répertoire `/scdoc/` dans le répertoire de votre projet.
+
+## Utilisation
+
+Au début de chaque session, exécutez la commande suivante :
+
+```{r, eval=FALSE}
+source("scdoc/scdoc.r")
+```
+
+Et c'est tout ! Éditez votre fichier *R markdown* (`.Rmd`) dans *R Studio*.
+Cliquez sur le bouton **Knit HTML** pour produire la version HTML^[Le fichier 
+HTML produit est autonome et peut donc être diffusé tel quel.] (et PDF le cas
+échéant) de votre document.
+
+# Paramètres du document {#params}
+
+Note : n'hésitez pas à utiliser ce document comme modèle pour vos propres documents.
+
+## Bloc YAML de configuration {#config_yaml}
+
+De nombreuses options peuvent être définies au début du document dans un bloc au
+format [YAML](http://fr.wikipedia.org/wiki/YAML). Ce bloc^[Voir à titre d'exemple
+<https://github.com/larmarange/scdoc/blob/master/Mode_d_emploi.Rmd>.] doit impérativement
+commencer par une ligne contenant uniquement `---` et se terminer par une ligne
+contenant uniquement `...`. Tous les paramètres sont optionels.
+
+
+Table: Paramètres du bloc YAML initial
+
+------------  ------------------------------------------------------------------
+lang          Langue du document au format ISO alpha 2,
+              `'en'` pour l'anglais, `'fr'` pour le français
+
+title         Titre du document
+
+author        Auteur(s) du document (plusieurs entrées possibles)
+
+date          Date du document (au format AAAA-MM-JJ, pour générer
+              automatiquement la date du jour, saisir
+              <code>'\`​r format(Sys.time(), "%Y-%m-%d")\`'</code>)
+
+tags          Mots-clés
+
+abstract      Résumé (doit commencer par `|` pour un résumé avec plusieurs
+              paragraphes, ces derniers devant alors être indentés)
+
+toc-title     Titre de la table des matières
+
+tof-title     Titre de la table des figures
+
+tot-title     Titre de la table des tables
+
+prefix-fig    Préfixe pour la numérotation des figures (*Figure* par défaut)
+
+prefix-table  Préfixe pour la numérotation des tables (*Table* par défaut)
+
+pdf           Pour générer automatiquement un PDF avec *Prince XML*, cette
+              option doit être égale à `'prince'`
+------------  ------------------------------------------------------------------
+
+## Autres paramètres de configuration {#config_autres}
+
+Nous vous recommandons de placer au début de votre document le code suivant :
+
+~~~~~~
+```{​r configuration, echo=FALSE, message=FALSE}
+opts_chunk$set(
+  comment = NA, # Ne pas afficher ## devant les résultats
+  dev = "svg", # Graphiques au format SVG
+  cache = TRUE, # Mise en cache
+  fig.width = 8, fig.height = 6 # Taille par défault des figures
+)
+options(
+  knitr.table.format = "html", # Tables directement au format HTML (kable)
+  xtable.type = "html", # Tables en HTML (xtable)
+  xtable.caption.placement = "top" # Titre avant le tableau (xtable)
+)
+knit_hooks$set(plot = hook_plot_html) # Figures directement au format HTML
+windowsFonts(sans=windowsFont("Open Sans")) # Police par défaut des graphiques
+```
+~~~~~~
+
+Il s'agit de différentes options pour *knitr*. Les options passées via `opts_chunk$set`
+sont optionnelles. Libre à vous de les adapter en fonction de vos besoin. Pour les
+graphiques, nous avons priviliégié le format SVG car ce dernier permet un rendu
+de meilleur qualité dans le PDF produit tout en étant correctement interprété 
+par les navigateurs modernes.
+
+`options(knitr.table.format = "html")` et `knit_hooks$set(plot = hook_plot_html)`
+sont nécessaires pour une gestion adéquate des identifiants et des titres des
+tableaux et des figures (voir [section](#tables) et [section](#figures) pour plus
+de détails). Les options `xtable.type`et `xtable.caption.placement` ne sont
+nécessaires que si vous utilisez le package *xtable*.
+
+`windowsFonts(sans=windowsFont("Open Sans"))` est totalement optionnel. Cela permet
+de spécifier la polices de caractères à utiliser lors de la création de graphiques.
+
+# Format markdown
+
+Dans la mesure où scdoc utilise pandoc pour interpréter le code mardown,
+il est possible d'utiliser tous les ajouts à markdown proposés par pandoc.
+Ces derniers sont décris en détails à <http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown>.
+
+
+# Titres et liens internes
+
+Les titres sont automatiquement numérotés. Il est cependant possible de spécifier
+qu'un titre particulier ne doit pas être numéroté en lui ajoutant la classe CSS
+`.unnumbered`.
+
+```
+## Titre non numéroté {.unnumbered}
+```
+
+produira :
+
+## Titre non numéroté {.unnumbered}
+
+Pour créer un lien interne vers un titre donné, il faut en premier lieu attribuer
+un identifiant unique à votre titre :
+
+```
+## Titre avec identifiant {#id_titre}
+```
+
+produira :
+
+## Titre avec identifiant {#id_titre}
+
+Pour créer un lien interne, il suffit dès lors de cibler le titre désiré avec son
+identifiant.
+
+```
+Voir [section](#id_titre).
+```
+
+produira :
+
+> Voir [section](#id_titre).
+
+Vous remarquerez au passage que le numéro du titre a été automatiquement ajouté
+(ainsi que le numéro de page dans la version PDF).
+
+# Inclure des chunck R
+
+## Bloc de code
+
+~~~~~~~~~
+```{​r}
+summary(cars)
+```
+~~~~~~~~~
+
+produira
+
+```{r}
+summary(cars)
+```
+
+Autre exemple :
+
+~~~~~~~~~
+```{​r}
+summary(cars)
+str(cars)
+sum(cars$speed)
+```
+~~~~~~~~~
+
+```{r}
+summary(cars)
+str(cars)
+sum(cars$speed)
+```
+
+Pour plus de détails, voir <http://yihui.name/knitr/>.
+
+## Code en ligne
+
+
+
+# Tableaux {#tables}
+
+Les tableaux sont automatiquement numérotés. De même, une table des tables est
+générée automatiquement. Le préfixe des numéros de table et le titre de la table
+des tables peuvent être personnalisés (voir [chapitre](#config_yaml)).
+
+Plusieurs fonctions et package R permettent de produire des tableaux correctement
+formatés en HTML (voir ci-après). Pour chaque package, nous présenterons comment
+personaliser le titre du tableau et comment lui attribuer un identifiant. L'ajout
+d'un identifiant permet de réaliser un lien interne. Par exemple :
+
+```
+Voir [table](#exemple_kable).
+```
+
+produira
+
+> Voir [table](#exemple_kable).
+
+## Fonction kable
+
+Il vous faut une version récente de *knitr* afin que soit disponible l'argument
+`caption`. La dernière version de *knitr* peut-être installée avec la commande :
+
+```{r, eval=FALSE}
+require(devtools)
+install_github('knitr', 'yihui')
+```
+
+En premier lieu, il faut calculer un tableau (avec une fonction telle que `table` ou
+`xtabs`).
+
+```{r}
+data(Titanic)
+d <- as.data.frame(Titanic)
+tab <- xtabs(Freq~Class+Survived, data=d)
+```
+
+Ensuite, on appellera la fonction `kable` dans un chunk ayant pour option 
+`results='asis'` afin que le code produit par `kable` soit inclus tel quel.
+Il importe également que l'on ait précisé à *knitr* de produire les tableaux
+au format HTML (`options(knitr.table.format = "html")`, voir [section](#config_autres)).
+
+Le paramètre `caption` (optionnel) permet d'indiquer un titre de tableau. Pour 
+ajouter un identifiant, on utilisera le paramètre `table.attr`. Enfin, il est
+possible de spécifier l'alignement de chaque colonne avec `align`.
+
+```{r, results='asis'}
+kable(tab, table.attr = 'id="exemple_kable"', 
+      caption = "Tableau généré avec kable", 
+      align = c('l','r','r'))
+```
+
+## Package xtable
+
+Le package *xtable* offre de multiples possibilités pour générer un tableau
+au format HTML. Il est recommandé de personnaliser au préalable les options
+`xtable.type` et `xtable.caption.placement` (voir [section](#config_autres)).
+
+Comme pour `kable`, `xtable` sera appelée dans un chunk ayant pour option 
+`results='asis'`. La syntaxe est la suivante :
+
+```{r, results='asis', message=FALSE}
+require(xtable)
+xtable(tab, caption="Tableau généré avec xtable", 
+       label="exemple_xtable", 
+       align=c("lrr"))
+```
+
+## Package tables
+
+Pour une gestion aisée du titre du tableau, une version récentes (0.7.67 ou plus)
+du package *tables* est requise. La dernière version peut être installée avec la
+commande :
+
+```{r, eval=FALSE}
+install.packages("tables", repos="http://R-Forge.R-project.org")
+```
+
+Dans un premier temps, le tableau sera calculé avec la fonction `tabular` (voir 
+l'aide de cette dernière pour plus de détails) :
+
+```{r, message=FALSE}
+require(tables)
+tab2 <- tabular( (Species + 1) ~ (n=1) + Format(digits=2)*
+         (Sepal.Length + Sepal.Width)*(mean + sd), data=iris )
+```
+
+Le tableau sera ensuite converti au format HTML avec la fonction `html`. Cette
+dernière sera appelée dans un chunk ayant pour option `results='asis'`. Petite
+particularité, le titre devra être indiqué avant d'appeler `html` avec la fonction
+`table_options`. Il est recommandé de remettre cette valeur à `NULL` juste après
+pour éviter d'impacter les tableaux suivants.
+
+```{r, results='asis'}
+table_options(HTMLcaption = 'Tableau généré avec tabular et html') 
+html(tab2, id='exemple_tabular')
+table_options(HTMLcaption = NULL) 
+```
+
+# Graphiques {#figures}
+
+Selon la norme HTML 5, on aura recours à la balise `<figure>` pour inclure des
+graphiques ou d'autres médias. Une même figure peut contenir plusieurs graphiques.
+Le titre d'une figure sera indiqué avec une balise `<figcaption>`.
+
+Les figures sont automatiquement numérotées. De même, une table des figures est
+générée automatiquement. Le préfixe des numéros de figure et le titre de la table
+des figures peuvent être personnalisés (voir [chapitre](#config_yaml)).
+
+Les balises `<figure>` et `<figcaption>` seront directements entrées dans le
+fichier markdown. (NB : cette approche fonctionnera sous réserve que l'option
+`knit_hooks$set(plot = hook_plot_html)` ait été appliquée au début du document,
+voir [section](#config_autres).)
+
+~~~~~~~~~
+<figure id="exemple_fig">
+```{​r, echo=FALSE}
+plot(cars)
+```
+<figcaption>Titre de la figure</figcaption>
+</figure>
+~~~~~~~~~
+
+produira
+
+<figure id="exemple_fig">
+```{r, echo=FALSE}
+plot(cars)
+```
+<figcaption>Titre de la figure</figcaption>
+</figure>
+
+L'ajout d'un identifiant permet de réaliser un lien interne. Par exemple :
+
+```
+Voir [figure](#exemple_fig).
+```
+
+produira
+
+> Voir [table](#exemple_fig).
+
+Un graphique créé sans être encadré par une balise `<figure>` ne sera pas ajouté
+à la table des figures.
+
+~~~~~~~~~
+```{​r, echo=FALSE}
+plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10,
+     main = "rpois(100, lambda = 5)")
+```
+~~~~~~~~~
+
+produira
+
+```{r, echo=FALSE}
+plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10,
+     main = "rpois(100, lambda = 5)")
+```
+
+# Notes de bas de page
+
+```
+Ceci est un texte^[Avec une note de bas de page].
+```
+
+produira : 
+
+> Ceci est un texte^[Avec une note de bas de page].
+
+*pandoc* reconnait plusieurs syntaxes pour rédiger des notes de bas de page 
+(voir <http://johnmacfarlane.net/pandoc/README.html#footnotes> pour plus de 
+détails).
+
+# Équations
+
+Il est possible d'écrire des équations^[Les équations seront transformées 
+au format MathML qui n'est pas correctement interprété par tous les navigateurs.
+La libraririe MathJax sera ajoutée dans une prochaine version.]
+au format LaTeX.
+
+```
+$\alpha+\beta=\gamma$
+$$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$
+```
+
+produira :
+
+> $\alpha+\beta=\gamma$
+> $$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$
+
+Il est également possible d'inclure directement du code HTML, qui sera conservé
+tel quel lors de l'export.
+
+
+# Ponctuation intelligente
+
+L'option ponctuation intelligente de *pandoc*
+^[<http://johnmacfarlane.net/pandoc/README.html#smart-punctuation>]
+est active. Cette dernière gère les points de suspensions (...), les tirets
+semi-cadratins (--), les tirets cadratins (---) et les guillemets anglais ("").
+
+Par exemple :
+
+~~~~~~
+--  ---   ...  "test"
+~~~~~~
+
+produira
+
+> --  ---   ...  "test"
+  
+La ponctuation française n'est pas encore gérée mais pourra être ajoutée dans
+une future version.
