@@ -1,4 +1,4 @@
 scdoc
 =====
 
-CSS and JS for long document
+Long documents with R  Studio, knitr, pandoc and prince.
