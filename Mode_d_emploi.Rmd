@@ -11,6 +11,7 @@ tof-title: 'Liste des figures'
 prefix-fig: 'Figure'
 tot-title: 'Liste des tables'
 prefix-table: 'Table'
+title-biblio: 'Références'
 pdf: 'prince'
 abstract: |
   *scdoc* permet de combiner la puissance de divers outils pour rédiger un document
@@ -495,3 +496,35 @@ produira
   
 La ponctuation française n'est pas encore gérée mais pourra être ajoutée dans
 une future version.
+
+# Références bibliographiques
+
+On peut ajouter une référence [@gabadinho:2011analyzing] au texte. C'est génial.
+
+
+---
+references:
+-
+  title: Analyzing and Visualizing State Sequences in R with TraMineR
+  id: gabadinho:2011analyzing
+  issued:
+    day: 7
+    month: 4
+    year: 2011
+  author:
+  - given:
+    - Alexis
+    family: Gabadinho
+  - given:
+    - Gilbert
+    family: Ritschard
+  - given:
+    - Nicolas
+    - S.
+    family: "Müller"
+  - given:
+    - Matthias
+    family: Studer
+  container-title: http://www.jstatsoft.org/v40/i04/paper
+  type: article-journal
+...

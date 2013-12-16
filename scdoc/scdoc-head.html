@@ -4,6 +4,12 @@
   <script language="javascript" type="text/javascript" src="./scdoc/jquery.tableofcontents.js"></script>
   <script language="javascript" type="text/javascript">
   	$( document ).ready(function() {
+      // Title of bibliographie
+      titleBiblio = $('meta[name="title-biblio"]').attr('content');
+  		if (typeof titleBiblio !== "undefined" & $(".references p").length > 0)
+        $(".references").prepend($("<h1>").html(titleBiblio));
+      if ($(".references p").length == 0)
+        $(".references").remove();
   	  // Table of contents
   	  $('#toc').tableofcontents();
   	  // Add header number to internal links

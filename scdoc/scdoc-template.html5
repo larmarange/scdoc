@@ -19,6 +19,9 @@ $endif$
 $if(prefix-table)$
   <meta name="prefix-table" content="$prefix-table$">
 $endif$
+$if(title-biblio)$
+  <meta name="title-biblio" content="$title-biblio$">
+$endif$
   <title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
