@@ -63,5 +63,8 @@
       $("code").html(function(i, h) {
         return h.replace('\u200B', '');
       });
+      // Downloading MathJax if required (and if not Prince XML)
+      if (typeof Prince ==="undefined" & $('math').length>0) 
+        $.getScript("https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML");
   	});
   </script>

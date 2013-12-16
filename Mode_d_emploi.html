@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc, scdoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="author" content="Joseph Larmarange">
-  <meta name="dcterms.date" content="2013-12-15">
+  <meta name="dcterms.date" content="2013-12-16">
   <meta name="keywords" content="R, RStudio, knitr, pandoc, Prince XML">
   <meta name="prefix-fig" content="Figure">
   <meta name="prefix-table" content="Table">
@@ -102,6 +102,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
         $("code").html(function(i, h) {
           return h.replace('\u200B', '');
         });
+        // Downloading MathJax if required (and if not Prince XML)
+        if (typeof Prince ==="undefined" & $('math').length>0) 
+          $.getScript("https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML");
     	});
     </script>
 </head>
@@ -110,7 +113,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div class="title">scdoc : rédaction d’un document long sous RStudio</div>
 <div class="subtitle">Mode d’emploi</div>
 <div class="author">Joseph Larmarange</div>
-<div class="date">2013-12-15</div>
+<div class="date">2013-12-16</div>
 <div class="abstract"><p><em>scdoc</em> permet de combiner la puissance de divers outils pour rédiger un document long directement dans <em>R Studio</em> en utilisant le format <em>markdown</em>. Par rapport au support natif du format <em>R markdown</em>, <code>scdoc</code> ajoute :</p>
 <ul>
 <li>la numérotation automatique des titres, tables et figures ;</li>
@@ -228,6 +231,7 @@ windowsFonts(sans=windowsFont(&quot;Open Sans&quot;)) # Police par défaut des g
 <p><code>windowsFonts(sans=windowsFont(&quot;Open Sans&quot;))</code> est totalement optionnel. Cela permet de spécifier la polices de caractères à utiliser lors de la création de graphiques.</p>
 <h1 id="format-markdown"><span class="header-section-number">5</span> Format markdown</h1>
 <p>Dans la mesure où scdoc utilise pandoc pour interpréter le code mardown, il est possible d’utiliser tous les ajouts à markdown proposés par pandoc. Ces derniers sont décris en détails à <a href="http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown">http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown</a>.</p>
+<p>Il est également possible d’inclure directement du code HTML, qui sera conservé tel quel lors de l’export.</p>
 <h1 id="titres-et-liens-internes"><span class="header-section-number">6</span> Titres et liens internes</h1>
 <p>Les titres sont automatiquement numérotés. Il est cependant possible de spécifier qu’un titre particulier ne doit pas être numéroté en lui ajoutant la classe CSS <code>.unnumbered</code>.</p>
 <pre><code>## Titre non numéroté {.unnumbered}</code></pre>
@@ -593,16 +597,16 @@ plot(table(rpois(100, 5)), type = &quot;h&quot;, col = &quot;red&quot;, lwd = 10
 </blockquote>
 <p><em>pandoc</em> reconnait plusieurs syntaxes pour rédiger des notes de bas de page (voir <a href="http://johnmacfarlane.net/pandoc/README.html#footnotes">http://johnmacfarlane.net/pandoc/README.html#footnotes</a> pour plus de détails).</p>
 <h1 id="équations"><span class="header-section-number">11</span> Équations</h1>
-<p>Il est possible d’écrire des équations<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> au format LaTeX.</p>
+<p>Il est possible d’écrire des équations au format LaTeX.</p>
 <pre><code>$\alpha+\beta=\gamma$
 $$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$</code></pre>
 <p>produira :</p>
 <blockquote>
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>α</mi><mo>+</mo><mi>β</mi><mo>=</mo><mi>γ</mi></mrow></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msubsup><mo>∫</mo><mn>0</mn><mo>∞</mo></msubsup><msup><mi>e</mi><mrow><mo>−</mo><msup><mi>x</mi><mn>2</mn></msup></mrow></msup><mi>d</mi><mi>x</mi><mo>=</mo><mfrac><msqrt><mi>π</mi></msqrt><mn>2</mn></mfrac></mrow></math></p>
 </blockquote>
-<p>Il est également possible d’inclure directement du code HTML, qui sera conservé tel quel lors de l’export.</p>
+<p>Les équations seront transformées au format MathML. Par ailleurs, s’il y a au moins une équation dans la page, la librairie <a href="http://www.mathjax.org/">MathJax</a> sera chargée afin que les équations soient correctement rendues sur tous les navigateurs.</p>
 <h1 id="ponctuation-intelligente"><span class="header-section-number">12</span> Ponctuation intelligente</h1>
-<p>L’option ponctuation intelligente de <em>pandoc</em> <a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> est active. Cette dernière gère les points de suspensions (…), les tirets semi-cadratins (–), les tirets cadratins (—) et les guillemets anglais (“”).</p>
+<p>L’option ponctuation intelligente de <em>pandoc</em> <a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> est active. Cette dernière gère les points de suspensions (…), les tirets semi-cadratins (–), les tirets cadratins (—) et les guillemets anglais (“”).</p>
 <p>Par exemple :</p>
 <pre><code>--  ---   ...  &quot;test&quot;</code></pre>
 <p>produira</p>
@@ -619,8 +623,7 @@ $$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$</code></pre>
 <li id="fn4"><p>Le fichier HTML produit est autonome et peut donc être diffusé tel quel.<a href="#fnref4">↩</a></p></li>
 <li id="fn5"><p>Voir à titre d’exemple <a href="https://github.com/larmarange/scdoc/blob/master/Mode_d_emploi.Rmd">https://github.com/larmarange/scdoc/blob/master/Mode_d_emploi.Rmd</a>.<a href="#fnref5">↩</a></p></li>
 <li id="fn6"><p>Avec une note de bas de page<a href="#fnref6">↩</a></p></li>
-<li id="fn7"><p>Les équations seront transformées au format MathML qui n’est pas correctement interprété par tous les navigateurs. La libraririe MathJax sera ajoutée dans une prochaine version.<a href="#fnref7">↩</a></p></li>
-<li id="fn8"><p><a href="http://johnmacfarlane.net/pandoc/README.html#smart-punctuation">http://johnmacfarlane.net/pandoc/README.html#smart-punctuation</a><a href="#fnref8">↩</a></p></li>
+<li id="fn7"><p><a href="http://johnmacfarlane.net/pandoc/README.html#smart-punctuation">http://johnmacfarlane.net/pandoc/README.html#smart-punctuation</a><a href="#fnref7">↩</a></p></li>
 </ol>
 </section>
 </section>

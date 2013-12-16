@@ -20,11 +20,6 @@ $if(prefix-table)$
   <meta name="prefix-table" content="$prefix-table$">
 $endif$
   <title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
-  <!-- Waiting new realease of pandoc including https://github.com/jgm/pandoc/issues/1080
-  <script type="text/javascript"
-    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-  </script>
-  -->
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->

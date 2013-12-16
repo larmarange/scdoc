@@ -193,6 +193,8 @@ Dans la mesure où scdoc utilise pandoc pour interpréter le code mardown,
 il est possible d'utiliser tous les ajouts à markdown proposés par pandoc.
 Ces derniers sont décris en détails à <http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown>.
 
+Il est également possible d'inclure directement du code HTML, qui sera conservé
+tel quel lors de l'export.
 
 # Titres et liens internes
 
@@ -447,10 +449,7 @@ détails).
 
 # Équations
 
-Il est possible d'écrire des équations^[Les équations seront transformées 
-au format MathML qui n'est pas correctement interprété par tous les navigateurs.
-La libraririe MathJax sera ajoutée dans une prochaine version.]
-au format LaTeX.
+Il est possible d'écrire des équations au format LaTeX.
 
 ```
 $\alpha+\beta=\gamma$
@@ -462,9 +461,9 @@ produira :
 > $\alpha+\beta=\gamma$
 > $$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$
 
-Il est également possible d'inclure directement du code HTML, qui sera conservé
-tel quel lors de l'export.
-
+Les équations seront transformées au format MathML. Par ailleurs, s'il y a au moins
+une équation dans la page, la librairie [MathJax](http://www.mathjax.org/) sera
+chargée afin que les équations soient correctement rendues sur tous les navigateurs.
 
 # Ponctuation intelligente
 
