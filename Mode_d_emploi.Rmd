@@ -271,7 +271,18 @@ Pour plus de détails, voir <http://yihui.name/knitr/>.
 
 ## Code en ligne
 
+Il est possible d'insérer du code R directement dans un paragraphe de texte avec :<br />
+<code>\`r​ ... some R code ... \`</code>
 
+~~~~~~~~~~
+La somme de 3 plus 4 est égale à `r 3+4`.
+~~~~~~~~~~
+
+produira
+
+> La somme de 3 plus 4 est égale à `r 3+4`.
+
+Le résultat apparait comme faisant partie intégrante du texte.
 
 # Tableaux {#tables}
 

@@ -10,11 +10,6 @@
   <meta name="prefix-fig" content="Figure">
   <meta name="prefix-table" content="Table">
   <title>scdoc : rédaction d’un document long sous RStudio</title>
-  <!-- Waiting new realease of pandoc including https://github.com/jgm/pandoc/issues/1080
-  <script type="text/javascript"
-    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-  </script>
-  -->
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -284,6 +279,13 @@ sum(cars$speed)
 <pre><code>[1] 770</code></pre>
 <p>Pour plus de détails, voir <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
 <h2 id="code-en-ligne"><span class="header-section-number">7.2</span> Code en ligne</h2>
+<p>Il est possible d’insérer du code R directement dans un paragraphe de texte avec :<br /> <code>`r​ … some R code … `</code></p>
+<pre><code>La somme de 3 plus 4 est égale à 7.</code></pre>
+<p>produira</p>
+<blockquote>
+<p>La somme de 3 plus 4 est égale à 7.</p>
+</blockquote>
+<p>Le résultat apparait comme faisant partie intégrante du texte.</p>
 <h1 id="tables"><span class="header-section-number">8</span> Tableaux</h1>
 <p>Les tableaux sont automatiquement numérotés. De même, une table des tables est générée automatiquement. Le préfixe des numéros de table et le titre de la table des tables peuvent être personnalisés (voir <a href="#config_yaml">chapitre</a>).</p>
 <p>Plusieurs fonctions et package R permettent de produire des tableaux correctement formatés en HTML (voir ci-après). Pour chaque package, nous présenterons comment personaliser le titre du tableau et comment lui attribuer un identifiant. L’ajout d’un identifiant permet de réaliser un lien interne. Par exemple :</p>
