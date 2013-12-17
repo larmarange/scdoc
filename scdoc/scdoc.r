@@ -10,6 +10,8 @@ options(rstudio.markdownToHTML =
 					opt <- yaml.load(paste(f[(b+1):(e-1)], collapse="\n"))
 				else
 					opt <- list()
+        if (!is.null(opt$zotxt)) zotxt <- "--filter=pandoc-zotxt"
+        else zotxt <- ""
 				system(paste("pandoc", 
 						shQuote(inputFile), 
 						"-t html5 -s -o", 
@@ -20,6 +22,7 @@ options(rstudio.markdownToHTML =
 						"--smart",
 						"--number-sections",
             "--mathml",
+            zotxt,
             "--filter=pandoc-citeproc",
 						"-S"))
 				if (!is.null(opt$pdf)) if (opt$pdf == 'prince')
