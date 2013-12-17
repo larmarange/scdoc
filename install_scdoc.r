@@ -1,5 +1,0 @@
-download.file("https://github.com/larmarange/scdoc/archive/master.zip","scdoc-master.zip")
-unzip("scdoc-master.zip")
-file.copy("./scdoc-master/scdoc/","./", recursive = TRUE, overwrite = TRUE)
-file.remove("scdoc-master.zip")
-unlink("scdoc-master", recursive = TRUE)

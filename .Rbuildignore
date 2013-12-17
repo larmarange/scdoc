@@ -1,0 +1,8 @@
+README.md
+.projectile
+^.*\.Rproj$
+^\.Rproj\.user$
+old\
+.Rhistory
+vignettes\
+copy_vignettes.R

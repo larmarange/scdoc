@@ -1,0 +1,17 @@
+Package: scdoc
+Maintainer: Joseph Larmarange <joseph@larmarange.net>
+Authors@R: c(person("Joseph", "Larmarange", email="joseph@larmarange.net",
+    role=c("aut","cre")))
+Version: 0.0.1
+Date: 2013-12-17
+License: GPL (>= 2)
+Encoding: UTF-8
+Title: Long document with R Studio, knitr, pandoc and prince XML
+Description: This package provides some convenience functions to produce long
+    documents with R Studio
+URL: https://github.com/larmarange/scdoc
+Depends:
+    yaml,
+    knitr
+Collate:
+    'scdoc.r'
