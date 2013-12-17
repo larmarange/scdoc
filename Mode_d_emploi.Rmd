@@ -83,6 +83,17 @@ Il peut être téléchargé à <http://www.princexml.com/download/>. Comme pour 
 `C:\Program Files (x86)\Prince\Engine\bin` devra être ajouté à la variable 
 d'environnement `path`.].
 
+## zotxt
+
+Il est possible d'utiliser ses références Zotero au sein de votre fichier R markdown.
+Pour cela, il vous faudra installer au préalable *zotxt* et *pandoc-zotxt* :
+
+- Installer l'extension *zotxt* (<https://addons.mozilla.org/fr/firefox/addon/zotxt/>)
+- Avoir python de disponible sur votre ordinateur (l'installer au besoin
+  cf. <http://www.python.org/download/>)
+- Installer pip <http://www.pip-installer.org/en/latest/installing.html>
+- Exécuter la commande `pip install pandoc-zotxt` (soit dans une fenêtre de commandes soit avec la fonction `system` sous R)
+
 # Installation et utilisation
 
 ## Installation manuelle
@@ -499,7 +510,16 @@ une future version.
 
 # Références bibliographiques
 
-On peut ajouter une référence [@gabadinho:2011analyzing] au texte. C'est génial.
+On peut ajouter une référence [@gabadinho:2011analyzing] au texte. Pour plus de
+détails sur la syntaxe, voir <http://johnmacfarlane.net/pandoc/README.html#citations>.
+
+Il faut soit que les sources bibliographiques soient ajouter au format YAML dans
+votre fichier *R markdown*.
+
+Une autre option consiste à utiliser *zotxt* pour lier votre document à votre base
+Zotero. Pour cela, vous devrez ajouer l'option `- zotxt:'yes'` à votre YAML d'en-tête
+(voir [section](#config_yaml)). Il importera également que Zotero soit ouvert lorsque 
+vous lancer **Knit HTML**.
 
 
 ---

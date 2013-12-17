@@ -143,6 +143,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>La transformation du fichier <em>markdown</em> au format <em>HTML</em> est réalisée avec <em>pandoc</em>. Ce dernier peut être téléchargé à <a href="http://johnmacfarlane.net/pandoc/installing.html">http://johnmacfarlane.net/pandoc/installing.html</a>. Il importe que <em>pandoc</em> soit accessible en ligne de commande<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. ATTENTION : en raison de certains changement dans <em>pandoc</em>, veuillez utiliser une version récente (≥ 1.12).</p>
 <h2 id="prince-xml"><span class="header-section-number">2.3</span> Prince XML</h2>
 <p>Pour générer un fichier PDF<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>, <em>Prince XML</em> doit être installé sur votre ordinateur. Il peut être téléchargé à <a href="http://www.princexml.com/download/">http://www.princexml.com/download/</a>. Comme pour <em>pandoc</em>, <em>Prince XML</em> doit être accessible en ligne de commande<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<h2 id="zotxt"><span class="header-section-number">2.4</span> zotxt</h2>
+<p>Il est possible d’utiliser ses références Zotero au sein de votre fichier R markdown. Pour cela, il vous faudra installer au préalable <em>zotxt</em> et <em>pandoc-zotxt</em> :</p>
+<ul>
+<li>Installer l’extension <em>zotxt</em> (<a href="https://addons.mozilla.org/fr/firefox/addon/zotxt/">https://addons.mozilla.org/fr/firefox/addon/zotxt/</a>)</li>
+<li>Avoir python de disponible sur votre ordinateur (l’installer au besoin cf. <a href="http://www.python.org/download/">http://www.python.org/download/</a>)</li>
+<li>Installer pip <a href="http://www.pip-installer.org/en/latest/installing.html">http://www.pip-installer.org/en/latest/installing.html</a></li>
+<li>Exécuter la commande <code>pip install pandoc-zotxt</code> (soit dans une fenêtre de commandes soit avec la fonction <code>system</code> sous R)</li>
+</ul>
 <h1 id="installation-et-utilisation"><span class="header-section-number">3</span> Installation et utilisation</h1>
 <h2 id="installation-manuelle"><span class="header-section-number">3.1</span> Installation manuelle</h2>
 <ol type="1">
@@ -624,7 +632,9 @@ $$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$</code></pre>
 </blockquote>
 <p>La ponctuation française n’est pas encore gérée mais pourra être ajoutée dans une future version.</p>
 <h1 id="références-bibliographiques"><span class="header-section-number">13</span> Références bibliographiques</h1>
-<p>On peut ajouter une référence <span class="citation" data-cites="gabadinho:2011analyzing">(Gabadinho et al. 2011)</span> au texte. C’est génial.</p>
+<p>On peut ajouter une référence <span class="citation" data-cites="gabadinho:2011analyzing">(Gabadinho et al. 2011)</span> au texte. Pour plus de détails sur la syntaxe, voir <a href="http://johnmacfarlane.net/pandoc/README.html#citations">http://johnmacfarlane.net/pandoc/README.html#citations</a>.</p>
+<p>Il faut soit que les sources bibliographiques soient ajouter au format YAML dans votre fichier <em>R markdown</em>.</p>
+<p>Une autre option consiste à utiliser <em>zotxt</em> pour lier votre document à votre base Zotero. Pour cela, vous devrez ajouer l’option <code>- zotxt:'yes'</code> à votre YAML d’en-tête (voir <a href="#config_yaml">section</a>). Il importera également que Zotero soit ouvert lorsque vous lancer <strong>Knit HTML</strong>.</p>
 <div class="references">
 <p>Gabadinho, Alexis, Gilbert Ritschard, Nicolas S. Müller, and Matthias Studer. 2011. “Analyzing and Visualizing State Sequences in R with TraMineR.” <em>Http://www.Jstatsoft.Org/V40/I04/Paper</em> (April 7).</p>
 </div>
