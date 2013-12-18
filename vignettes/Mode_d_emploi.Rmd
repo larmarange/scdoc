@@ -94,21 +94,26 @@ Pour cela, il vous faudra installer au préalable *zotxt* et *pandoc-zotxt* :
 - Installer pip <http://www.pip-installer.org/en/latest/installing.html>
 - Exécuter la commande `pip install pandoc-zotxt` (soit dans une fenêtre de commandes soit avec la fonction `system` sous R)
 
-# Installation et utilisation
+# Installation
 
-## Installation manuelle
+Exécuter la commande suivante :
 
-1. Téléchargez la dernière version de *scdoc* sur Github<i class="icon-github-circled"></i> 
-   (<https://github.com/larmarange/scdoc/archive/master.zip>).
-2. Dézippez l'archive.
-3. Copiez le sous-répertoire `/scdoc/` dans le répertoire de votre projet.
+```{r, eval=FALSE}
+if (!require(devtools)){
+    install.packages('devtools')
+    library(devtools)
+}
+install_github("scdoc","larmarange")
+```
 
-## Utilisation
+
+# Utilisation
 
 Au début de chaque session, exécutez la commande suivante :
 
 ```{r, eval=FALSE}
-source("scdoc/scdoc.r")
+require(scdoc)
+scdoc()
 ```
 
 Et c'est tout ! Éditez votre fichier *R markdown* (`.Rmd`) dans *R Studio*.
