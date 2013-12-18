@@ -515,10 +515,11 @@ une future version.
 
 # Références bibliographiques
 
-On peut ajouter une référence [@gabadinho:2011analyzing] au texte. Pour plus de
+On peut ajouter une référence bibliographique au texte. Par exemple, le pacakge 
+*TraMineR* permet d'analyser des séquences [@gabadinho:2011analyzing]. Pour plus de
 détails sur la syntaxe, voir <http://johnmacfarlane.net/pandoc/README.html#citations>.
 
-Il faut soit que les sources bibliographiques soient ajouter au format YAML dans
+Il faut soit que les sources bibliographiques soit ajouter au format YAML dans
 votre fichier *R markdown*.
 
 Une autre option consiste à utiliser *zotxt* pour lier votre document à votre base
@@ -526,6 +527,8 @@ Zotero. Pour cela, vous devrez ajouer l'option `- zotxt:'yes'` à votre YAML d'e
 (voir [section](#config_yaml)). Il importera également que Zotero soit ouvert lorsque 
 vous lancer **Knit HTML**.
 
+Enfin, vous pouvez utilisez la fonction *zotxt2yaml* pour extraire avec *zotxt* 
+les références citées dans votre document et générer le YAML correspondant.
 
 ---
 references:

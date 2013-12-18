@@ -633,9 +633,10 @@ $$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$</code></pre>
 </blockquote>
 <p>La ponctuation française n’est pas encore gérée mais pourra être ajoutée dans une future version.</p>
 <h1 id="références-bibliographiques"><span class="header-section-number">14</span> Références bibliographiques</h1>
-<p>On peut ajouter une référence <span class="citation" data-cites="gabadinho:2011analyzing">(Gabadinho et al. 2011)</span> au texte. Pour plus de détails sur la syntaxe, voir <a href="http://johnmacfarlane.net/pandoc/README.html#citations">http://johnmacfarlane.net/pandoc/README.html#citations</a>.</p>
-<p>Il faut soit que les sources bibliographiques soient ajouter au format YAML dans votre fichier <em>R markdown</em>.</p>
+<p>On peut ajouter une référence bibliographique au texte. Par exemple, le pacakge <em>TraMineR</em> permet d’analyser des séquences <span class="citation" data-cites="gabadinho:2011analyzing">(Gabadinho et al. 2011)</span>. Pour plus de détails sur la syntaxe, voir <a href="http://johnmacfarlane.net/pandoc/README.html#citations">http://johnmacfarlane.net/pandoc/README.html#citations</a>.</p>
+<p>Il faut soit que les sources bibliographiques soit ajouter au format YAML dans votre fichier <em>R markdown</em>.</p>
 <p>Une autre option consiste à utiliser <em>zotxt</em> pour lier votre document à votre base Zotero. Pour cela, vous devrez ajouer l’option <code>- zotxt:'yes'</code> à votre YAML d’en-tête (voir <a href="#config_yaml">section</a>). Il importera également que Zotero soit ouvert lorsque vous lancer <strong>Knit HTML</strong>.</p>
+<p>Enfin, vous pouvez utilisez la fonction <em>zotxt2yaml</em> pour extraire avec <em>zotxt</em> les références citées dans votre document et générer le YAML correspondant.</p>
 <div class="references">
 <p>Gabadinho, Alexis, Gilbert Ritschard, Nicolas S. Müller, and Matthias Studer. 2011. “Analyzing and Visualizing State Sequences in R with TraMineR.” <em>Http://www.Jstatsoft.Org/V40/I04/Paper</em> (April 7).</p>
 </div>
