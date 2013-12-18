@@ -2,7 +2,8 @@ README.md
 .projectile
 ^.*\.Rproj$
 ^\.Rproj\.user$
-old\
 .Rhistory
-vignettes\
+vignettes
+cache
+figure
 copy_vignettes.R

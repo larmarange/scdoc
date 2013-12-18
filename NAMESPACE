@@ -1,3 +1,4 @@
 export(scdoc)
+export(scdoc.md2html)
 export(zotxt2json)
 export(zotxt2yaml)
