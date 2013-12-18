@@ -7,7 +7,7 @@ Documents longs (scientifiques) avec R, R Studio, knitr, pandoc, prince XML et z
 
 ## Before installing / Pré-requis
 
-Lisez le mode d'emploi (en particiculier la section *Pré-requis*): https://github.com/larmarange/scdoc/raw/master/vignettes/Mode_d_emploi.pdf
+Lisez le mode d'emploi (en particulier la section *Pré-requis*): https://github.com/larmarange/scdoc/raw/master/vignettes/Mode_d_emploi.pdf
 
 ## Installation
 
