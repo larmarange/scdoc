@@ -5,12 +5,12 @@
   <meta name="generator" content="pandoc, scdoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="author" content="Joseph Larmarange">
-  <meta name="dcterms.date" content="2013-12-18">
+  <meta name="dcterms.date" content="2014-01-13">
   <meta name="keywords" content="R, RStudio, knitr, pandoc, Prince XML">
   <meta name="prefix-fig" content="Figure">
   <meta name="prefix-table" content="Table">
   <meta name="title-biblio" content="Références">
-  <title>scdoc : rédaction d’un document long sous RStudio</title>
+  <title>scdoc : rédaction d’un document long sous RStudio</title>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -112,17 +112,17 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </head>
 <body>
 <header>
-<div class="title">scdoc : rédaction d’un document long sous RStudio</div>
+<div class="title">scdoc : rédaction d’un document long sous RStudio</div>
 <div class="subtitle">Mode d’emploi</div>
 <div class="author">Joseph Larmarange</div>
-<div class="date">2013-12-18</div>
-<div class="abstract"><p><em>scdoc</em> permet de combiner la puissance de divers outils pour rédiger un document long directement dans <em>R Studio</em> en utilisant le format <em>markdown</em>. Par rapport au support natif du format <em>R markdown</em>, <code>scdoc</code> ajoute :</p>
+<div class="date">2014-01-13</div>
+<div class="abstract"><p><em>scdoc</em> permet de combiner la puissance de divers outils pour rédiger un document long directement dans <em>R Studio</em> en utilisant le format <em>markdown</em>. Par rapport au support natif du format <em>R markdown</em>, <em>scdoc</em> ajoute :</p>
 <ul>
-<li>la numérotation automatique des titres, tables et figures ;</li>
-<li>la génération d’une table des matières, d’une liste des tables et d’une liste des figures ;</li>
-<li>l’ajout automatique des numéros de titre, table ou figure aux liens internes ;</li>
-<li>amélioration de la ponctuation (limitée aux règles anglaises) ;</li>
-<li>la génération d’un fichier HTML avec une mise en forme moderne, incluant un accès facilité à la table des matières et aux notes de bas de page ;</li>
+<li>la numérotation automatique des titres, tables et figures ;</li>
+<li>la génération d’une table des matières, d’une liste des tables et d’une liste des figures ;</li>
+<li>l’ajout automatique des numéros de titre, table ou figure aux liens internes ;</li>
+<li>amélioration de la ponctuation (limitée aux règles anglaises) ;</li>
+<li>la génération d’un fichier HTML avec une mise en forme moderne, incluant un accès facilité à la table des matières et aux notes de bas de page ;</li>
 <li>la génération d’une version PDF avec une mise en forme classique et l’ajout des numéros de page aux liens internes.</li>
 </ul></div>
 <div class="tags"><i class="icon-tags"></i> R, RStudio, knitr, pandoc, Prince XML</div>
@@ -134,37 +134,38 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </nav>
 <section>
 <h1 id="à-propos-de-scdoc"><span class="header-section-number">1</span> À propos de <em>scdoc</em></h1>
-<p><em>scdoc</em> est dévelopé par Joseph Larmarange sur GitHub<i class="icon-github-circled"></i> :<br /> <a href="https://github.com/larmarange/scdoc">https://github.com/larmarange/scdoc</a></p>
-<p>Pour toute question, rapport de bug, proposition d’amélioration :<br /> <a href="https://github.com/larmarange/scdoc/issues">https://github.com/larmarange/scdoc/issues</a></p>
+<p><em>scdoc</em> est dévelopé par Joseph Larmarange sur GitHub<i class="icon-github-circled"></i> :<br /> <a href="https://github.com/larmarange/scdoc">https://github.com/larmarange/scdoc</a></p>
+<p>Pour toute question, rapport de bug, proposition d’amélioration :<br /> <a href="https://github.com/larmarange/scdoc/issues">https://github.com/larmarange/scdoc/issues</a></p>
 <h1 id="pré-requis"><span class="header-section-number">2</span> Pré-requis</h1>
+<p><em>scdoc</em> nécessite que plusieurs outils soient installés sur votre système.</p>
 <h2 id="r-studio"><span class="header-section-number">2.1</span> R Studio</h2>
-<p><em>scdoc</em> nécessite que plusieurs outils soient installés sur votre système. En premier lieu, <em>scdoc</em> s’utilise dans la cadre d’un projet <em>R</em> géré avec l’interface de développement <em>R Studio</em>. Cette dernière, disponibles pour Windows Mac et Linux, peut être téléchargée à <a href="http://www.rstudio.com/ide/">http://www.rstudio.com/ide/</a>.</p>
+<p>En premier lieu, <em>scdoc</em> s’utilise dans la cadre d’un projet <em>R</em> géré avec l’interface de développement <em>R Studio</em>. Cette dernière, disponibles pour Windows Mac et Linux, peut être téléchargée à <a href="http://www.rstudio.com/ide/">http://www.rstudio.com/ide/</a>.</p>
 <h2 id="pandoc"><span class="header-section-number">2.2</span> pandoc</h2>
-<p>La transformation du fichier <em>markdown</em> au format <em>HTML</em> est réalisée avec <em>pandoc</em>. Ce dernier peut être téléchargé à <a href="http://johnmacfarlane.net/pandoc/installing.html">http://johnmacfarlane.net/pandoc/installing.html</a>. Il importe que <em>pandoc</em> soit accessible en ligne de commande<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. ATTENTION : en raison de certains changement dans <em>pandoc</em>, veuillez utiliser une version récente (≥ 1.12).</p>
+<p>La transformation du fichier <em>markdown</em> au format <em>HTML</em> est réalisée avec <em>pandoc</em>. Ce dernier peut être téléchargé à <a href="http://johnmacfarlane.net/pandoc/installing.html">http://johnmacfarlane.net/pandoc/installing.html</a>. Il importe que <em>pandoc</em> soit accessible en ligne de commande<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. ATTENTION : en raison de certains changement dans <em>pandoc</em>, veuillez utiliser une version récente (≥ 1.12).</p>
 <h2 id="prince-xml"><span class="header-section-number">2.3</span> Prince XML</h2>
 <p>Pour générer un fichier PDF<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>, <em>Prince XML</em> doit être installé sur votre ordinateur. Il peut être téléchargé à <a href="http://www.princexml.com/download/">http://www.princexml.com/download/</a>. Comme pour <em>pandoc</em>, <em>Prince XML</em> doit être accessible en ligne de commande<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
 <h2 id="zotxt"><span class="header-section-number">2.4</span> zotxt</h2>
-<p>Il est possible d’utiliser ses références Zotero au sein de votre fichier R markdown. Pour cela, il vous faudra installer au préalable <em>zotxt</em> et <em>pandoc-zotxt</em> :</p>
+<p>Il est possible d’utiliser ses références Zotero au sein de votre fichier R markdown. Pour cela, il vous faudra installer au préalable <em>zotxt</em> et <em>pandoc-zotxt</em> :</p>
 <ul>
 <li>Installer l’extension <em>zotxt</em> (<a href="https://addons.mozilla.org/fr/firefox/addon/zotxt/">https://addons.mozilla.org/fr/firefox/addon/zotxt/</a>)</li>
-<li>Avoir python de disponible sur votre ordinateur (l’installer au besoin cf. <a href="http://www.python.org/download/">http://www.python.org/download/</a>)</li>
-<li>Installer pip <a href="http://www.pip-installer.org/en/latest/installing.html">http://www.pip-installer.org/en/latest/installing.html</a></li>
+<li>Avoir <em>python</em> de disponible sur votre ordinateur (l’installer au besoin cf. <a href="http://www.python.org/download/">http://www.python.org/download/</a>)</li>
+<li>Installer <em>pip</em> <a href="http://www.pip-installer.org/en/latest/installing.html">http://www.pip-installer.org/en/latest/installing.html</a></li>
 <li>Exécuter la commande <code>pip install pandoc-zotxt</code> (soit dans une fenêtre de commandes soit avec la fonction <code>system</code> sous R)</li>
 </ul>
-<h1 id="installation"><span class="header-section-number">3</span> Installation</h1>
-<p>Exécuter la commande suivante :</p>
+<h1 id="installation-de-scdoc"><span class="header-section-number">3</span> Installation de scdoc</h1>
+<p>Exécuter la commande suivante dans R :</p>
 <pre class="sourceCode r"><code class="sourceCode r">if (!<span class="kw">require</span>(devtools)){
     <span class="kw">install.packages</span>(<span class="st">'devtools'</span>)
     <span class="kw">library</span>(devtools)
 }
 <span class="kw">install_github</span>(<span class="st">&quot;scdoc&quot;</span>,<span class="st">&quot;larmarange&quot;</span>)</code></pre>
 <h1 id="utilisation"><span class="header-section-number">4</span> Utilisation</h1>
-<p>Au début de chaque session, exécutez la commande suivante :</p>
+<p>Au début de chaque session, exécutez la commande suivante :</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(scdoc)
 <span class="kw">scdoc</span>()</code></pre>
-<p>Et c’est tout ! Éditez votre fichier <em>R markdown</em> (<code>.Rmd</code>) dans <em>R Studio</em>. Cliquez sur le bouton <strong>Knit HTML</strong> pour produire la version HTML<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> (et PDF le cas échéant) de votre document.</p>
+<p>Et c’est tout ! Éditez votre fichier <em>R markdown</em> (<code>.Rmd</code>) dans <em>R Studio</em>. Cliquez sur le bouton <strong>Knit HTML</strong> pour produire la version HTML<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> (et PDF le cas échéant) de votre document.</p>
 <h1 id="params"><span class="header-section-number">5</span> Paramètres du document</h1>
-<p>Note : n’hésitez pas à utiliser ce document comme modèle pour vos propres documents.</p>
+<p>Note : n’hésitez pas à utiliser ce document comme modèle pour vos propres documents.</p>
 <h2 id="config_yaml"><span class="header-section-number">5.1</span> Bloc YAML de configuration</h2>
 <p>De nombreuses options peuvent être définies au début du document dans un bloc au format <a href="http://fr.wikipedia.org/wiki/YAML">YAML</a>. Ce bloc<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> doit impérativement commencer par une ligne contenant uniquement <code>---</code> et se terminer par une ligne contenant uniquement <code>...</code>. Tous les paramètres sont optionels.</p>
 <table>
@@ -184,7 +185,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </tr>
 <tr class="even">
 <td style="text-align: left;">date</td>
-<td style="text-align: left;">Date du document (au format AAAA-MM-JJ, pour générer automatiquement la date du jour, saisir <code>‘`​r format(Sys.time(), “%Y-%m-%d”)`’</code>)</td>
+<td style="text-align: left;">Date du document (au format AAAA-MM-JJ, pour générer automatiquement la date du jour, saisir <code>‘`r format(Sys.time(), “%Y-%m-%d”)`’</code>)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tags</td>
@@ -221,8 +222,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </tbody>
 </table>
 <h2 id="config_autres"><span class="header-section-number">5.2</span> Autres paramètres de configuration</h2>
-<p>Nous vous recommandons de placer au début de votre document le code suivant :</p>
-<pre><code>```{​r configuration, echo=FALSE, message=FALSE}
+<p>Nous vous recommandons de placer au début de votre document le code suivant :</p>
+<pre><code>```{r configuration, echo=FALSE, message=FALSE}
 opts_chunk$set(
   comment = NA, # Ne pas afficher ## devant les résultats
   dev = &quot;svg&quot;, # Graphiques au format SVG
@@ -246,56 +247,56 @@ windowsFonts(sans=windowsFont(&quot;Open Sans&quot;)) # Police par défaut des g
 <h1 id="titres-et-liens-internes"><span class="header-section-number">7</span> Titres et liens internes</h1>
 <p>Les titres sont automatiquement numérotés. Il est cependant possible de spécifier qu’un titre particulier ne doit pas être numéroté en lui ajoutant la classe CSS <code>.unnumbered</code>.</p>
 <pre><code>## Titre non numéroté {.unnumbered}</code></pre>
-<p>produira :</p>
+<p>produira :</p>
 <h2 id="titre-non-numéroté" class="unnumbered">Titre non numéroté</h2>
-<p>Pour créer un lien interne vers un titre donné, il faut en premier lieu attribuer un identifiant unique à votre titre :</p>
+<p>Pour créer un lien interne vers un titre donné, il faut en premier lieu attribuer un identifiant unique à votre titre :</p>
 <pre><code>## Titre avec identifiant {#id_titre}</code></pre>
-<p>produira :</p>
+<p>produira :</p>
 <h2 id="id_titre"><span class="header-section-number">7.1</span> Titre avec identifiant</h2>
 <p>Pour créer un lien interne, il suffit dès lors de cibler le titre désiré avec son identifiant.</p>
 <pre><code>Voir [section](#id_titre).</code></pre>
-<p>produira :</p>
+<p>produira :</p>
 <blockquote>
 <p>Voir <a href="#id_titre">section</a>.</p>
 </blockquote>
 <p>Vous remarquerez au passage que le numéro du titre a été automatiquement ajouté (ainsi que le numéro de page dans la version PDF).</p>
 <h1 id="inclure-des-chunck-r"><span class="header-section-number">8</span> Inclure des chunck R</h1>
 <h2 id="bloc-de-code"><span class="header-section-number">8.1</span> Bloc de code</h2>
-<pre><code>```{​r}
+<pre><code>```{r}
 summary(cars)
 ```</code></pre>
 <p>produira</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars)</code></pre>
 <pre><code>     speed           dist    
- Min.   : 4.0   Min.   :  2  
+ Min.   : 4.0   Min.   :  2  
  1st Qu.:12.0   1st Qu.: 26  
- Median :15.0   Median : 36  
- Mean   :15.4   Mean   : 43  
+ Median :15.0   Median : 36  
+ Mean   :15.4   Mean   : 43  
  3rd Qu.:19.0   3rd Qu.: 56  
- Max.   :25.0   Max.   :120  </code></pre>
-<p>Autre exemple :</p>
-<pre><code>```{​r}
+ Max.   :25.0   Max.   :120  </code></pre>
+<p>Autre exemple :</p>
+<pre><code>```{r}
 summary(cars)
 str(cars)
 sum(cars$speed)
 ```</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars)</code></pre>
 <pre><code>     speed           dist    
- Min.   : 4.0   Min.   :  2  
+ Min.   : 4.0   Min.   :  2  
  1st Qu.:12.0   1st Qu.: 26  
- Median :15.0   Median : 36  
- Mean   :15.4   Mean   : 43  
+ Median :15.0   Median : 36  
+ Mean   :15.4   Mean   : 43  
  3rd Qu.:19.0   3rd Qu.: 56  
- Max.   :25.0   Max.   :120  </code></pre>
+ Max.   :25.0   Max.   :120  </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(cars)</code></pre>
 <pre><code>'data.frame':   50 obs. of  2 variables:
  $ speed: num  4 4 7 7 8 9 10 10 10 11 ...
- $ dist : num  2 10 4 22 16 10 18 26 34 17 ...</code></pre>
+ $ dist : num  2 10 4 22 16 10 18 26 34 17 ...</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(cars$speed)</code></pre>
 <pre><code>[1] 770</code></pre>
 <p>Pour plus de détails, voir <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
 <h2 id="code-en-ligne"><span class="header-section-number">8.2</span> Code en ligne</h2>
-<p>Il est possible d’insérer du code R directement dans un paragraphe de texte avec :<br /> <code>`r​ … some R code … `</code></p>
+<p>Il est possible d’insérer du code R directement dans un paragraphe de texte avec :<br /> <code>`r … some R code … `</code></p>
 <pre><code>La somme de 3 plus 4 est égale à 7.</code></pre>
 <p>produira</p>
 <blockquote>
@@ -304,14 +305,14 @@ sum(cars$speed)
 <p>Le résultat apparait comme faisant partie intégrante du texte.</p>
 <h1 id="tables"><span class="header-section-number">9</span> Tableaux</h1>
 <p>Les tableaux sont automatiquement numérotés. De même, une table des tables est générée automatiquement. Le préfixe des numéros de table et le titre de la table des tables peuvent être personnalisés (voir <a href="#config_yaml">chapitre</a>).</p>
-<p>Plusieurs fonctions et package R permettent de produire des tableaux correctement formatés en HTML (voir ci-après). Pour chaque package, nous présenterons comment personaliser le titre du tableau et comment lui attribuer un identifiant. L’ajout d’un identifiant permet de réaliser un lien interne. Par exemple :</p>
+<p>Plusieurs fonctions et package R permettent de produire des tableaux correctement formatés en HTML (voir ci-après). Pour chaque package, nous présenterons comment personaliser le titre du tableau et comment lui attribuer un identifiant. L’ajout d’un identifiant permet de réaliser un lien interne. Par exemple :</p>
 <pre><code>Voir [table](#exemple_kable).</code></pre>
 <p>produira</p>
 <blockquote>
 <p>Voir <a href="#exemple_kable">table</a>.</p>
 </blockquote>
 <h2 id="fonction-kable"><span class="header-section-number">9.1</span> Fonction kable</h2>
-<p>Il vous faut une version récente de <em>knitr</em> afin que soit disponible l’argument <code>caption</code>. La dernière version de <em>knitr</em> peut-être installée avec la commande :</p>
+<p>Il vous faut une version récente de <em>knitr</em> afin que soit disponible l’argument <code>caption</code>. La dernière version de <em>knitr</em> peut-être installée avec la commande :</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(devtools)
 <span class="kw">install_github</span>(<span class="st">'knitr'</span>, <span class="st">'yihui'</span>)</code></pre>
 <p>En premier lieu, il faut calculer un tableau (avec une fonction telle que <code>table</code> ou <code>xtabs</code>).</p>
@@ -389,13 +390,13 @@ Crew
 
 <h2 id="package-xtable"><span class="header-section-number">9.2</span> Package xtable</h2>
 <p>Le package <em>xtable</em> offre de multiples possibilités pour générer un tableau au format HTML. Il est recommandé de personnaliser au préalable les options <code>xtable.type</code> et <code>xtable.caption.placement</code> (voir <a href="#config_autres">section</a>).</p>
-<p>Comme pour <code>kable</code>, <code>xtable</code> sera appelée dans un chunk ayant pour option <code>results='asis'</code>. La syntaxe est la suivante :</p>
+<p>Comme pour <code>kable</code>, <code>xtable</code> sera appelée dans un chunk ayant pour option <code>results='asis'</code>. La syntaxe est la suivante :</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(xtable)
 <span class="kw">xtable</span>(tab, <span class="dt">caption=</span><span class="st">&quot;Tableau généré avec xtable&quot;</span>, 
        <span class="dt">label=</span><span class="st">&quot;exemple_xtable&quot;</span>, 
        <span class="dt">align=</span><span class="kw">c</span>(<span class="st">&quot;lrr&quot;</span>))</code></pre>
 <!-- html table generated in R 3.0.2 by xtable 1.7-1 package -->
-<!-- Wed Dec 18 13:43:05 2013 -->
+<!-- Mon Jan 13 16:31:36 2014 -->
 <TABLE border="1">
 <CAPTION ALIGN="top"> 
 Tableau généré avec xtable
@@ -437,15 +438,15 @@ Crew
 
 
 <h2 id="package-tables"><span class="header-section-number">9.3</span> Package tables</h2>
-<p>Pour une gestion aisée du titre du tableau, une version récentes (0.7.67 ou plus) du package <em>tables</em> est requise. La dernière version peut être installée avec la commande :</p>
+<p>Pour une gestion aisée du titre du tableau, une version récentes (0.7.67 ou plus) du package <em>tables</em> est requise. La dernière version peut être installée avec la commande :</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tables&quot;</span>, <span class="dt">repos=</span><span class="st">&quot;http://R-Forge.R-project.org&quot;</span>)</code></pre>
-<p>Dans un premier temps, le tableau sera calculé avec la fonction <code>tabular</code> (voir l’aide de cette dernière pour plus de détails) :</p>
+<p>Dans un premier temps, le tableau sera calculé avec la fonction <code>tabular</code> (voir l’aide de cette dernière pour plus de détails) :</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(tables)
 tab2 &lt;-<span class="st"> </span><span class="kw">tabular</span>( (Species +<span class="st"> </span><span class="dv">1</span>) ~<span class="st"> </span>(<span class="dt">n=</span><span class="dv">1</span>) +<span class="st"> </span><span class="kw">Format</span>(<span class="dt">digits=</span><span class="dv">2</span>)*
 <span class="st">         </span>(Sepal.Length +<span class="st"> </span>Sepal.Width)*(mean +<span class="st"> </span>sd), <span class="dt">data=</span>iris )</code></pre>
 <p>Le tableau sera ensuite converti au format HTML avec la fonction <code>html</code>. Cette dernière sera appelée dans un chunk ayant pour option <code>results='asis'</code>. Petite particularité, le titre devra être indiqué avant d’appeler <code>html</code> avec la fonction <code>table_options</code>. Il est recommandé de remettre cette valeur à <code>NULL</code> juste après pour éviter d’impacter les tableaux suivants.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table_options</span>(<span class="dt">HTMLcaption =</span> <span class="st">'Tableau généré avec tabular et html'</span>) 
-<span class="kw">html</span>(tab2, <span class="dt">id=</span><span class="st">'exemple_tabular'</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table_options</span>(<span class="dt">HTMLcaption =</span> <span class="st">'Tableau généré avec tabular et htm </span>
+<span class="st">html(tab2, id='</span>exemple_tabular<span class="st">')</span></code></pre>
 <table id="exemple_tabular" frame="hsides" rules="groups">
 <caption>
 Tableau généré avec tabular et html
@@ -574,9 +575,9 @@ All
 <h1 id="figures"><span class="header-section-number">10</span> Graphiques</h1>
 <p>Selon la norme HTML 5, on aura recours à la balise <code>&lt;figure&gt;</code> pour inclure des graphiques ou d’autres médias. Une même figure peut contenir plusieurs graphiques. Le titre d’une figure sera indiqué avec une balise <code>&lt;figcaption&gt;</code>.</p>
 <p>Les figures sont automatiquement numérotées. De même, une table des figures est générée automatiquement. Le préfixe des numéros de figure et le titre de la table des figures peuvent être personnalisés (voir <a href="#config_yaml">chapitre</a>).</p>
-<p>Les balises <code>&lt;figure&gt;</code> et <code>&lt;figcaption&gt;</code> seront directements entrées dans le fichier markdown. (NB : cette approche fonctionnera sous réserve que l’option <code>knit_hooks$set(plot = hook_plot_html)</code> ait été appliquée au début du document, voir <a href="#config_autres">section</a>.)</p>
+<p>Les balises <code>&lt;figure&gt;</code> et <code>&lt;figcaption&gt;</code> seront directements entrées dans le fichier markdown. (NB : cette approche fonctionnera sous réserve que l’option <code>knit_hooks$set(plot = hook_plot_html)</code> ait été appliquée au début du document, voir <a href="#config_autres">section</a>.)</p>
 <pre><code>&lt;figure id=&quot;exemple_fig&quot;&gt;
-```{​r, echo=FALSE}
+```{r, echo=FALSE}
 plot(cars)
 ```
 &lt;figcaption&gt;Titre de la figure&lt;/figcaption&gt;
@@ -592,14 +593,14 @@ Titre de la figure
 </figcaption>
 </figure>
 
-<p>L’ajout d’un identifiant permet de réaliser un lien interne. Par exemple :</p>
+<p>L’ajout d’un identifiant permet de réaliser un lien interne. Par exemple :</p>
 <pre><code>Voir [figure](#exemple_fig).</code></pre>
 <p>produira</p>
 <blockquote>
 <p>Voir <a href="#exemple_fig">table</a>.</p>
 </blockquote>
 <p>Un graphique créé sans être encadré par une balise <code>&lt;figure&gt;</code> ne sera pas ajouté à la table des figures.</p>
-<pre><code>```{​r, echo=FALSE}
+<pre><code>```{r, echo=FALSE}
 plot(table(rpois(100, 5)), type = &quot;h&quot;, col = &quot;red&quot;, lwd = 10,
      main = &quot;rpois(100, lambda = 5)&quot;)
 ```</code></pre>
@@ -609,7 +610,7 @@ plot(table(rpois(100, 5)), type = &quot;h&quot;, col = &quot;red&quot;, lwd = 10
 </div>
 <h1 id="notes-de-bas-de-page"><span class="header-section-number">11</span> Notes de bas de page</h1>
 <pre><code>Ceci est un texte^[Avec une note de bas de page].</code></pre>
-<p>produira :</p>
+<p>produira :</p>
 <blockquote>
 <p>Ceci est un texte<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>.</p>
 </blockquote>
@@ -618,14 +619,14 @@ plot(table(rpois(100, 5)), type = &quot;h&quot;, col = &quot;red&quot;, lwd = 10
 <p>Il est possible d’écrire des équations au format LaTeX.</p>
 <pre><code>$\alpha+\beta=\gamma$
 $$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$</code></pre>
-<p>produira :</p>
+<p>produira :</p>
 <blockquote>
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>α</mi><mo>+</mo><mi>β</mi><mo>=</mo><mi>γ</mi></mrow></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msubsup><mo>∫</mo><mn>0</mn><mo>∞</mo></msubsup><msup><mi>e</mi><mrow><mo>−</mo><msup><mi>x</mi><mn>2</mn></msup></mrow></msup><mi>d</mi><mi>x</mi><mo>=</mo><mfrac><msqrt><mi>π</mi></msqrt><mn>2</mn></mfrac></mrow></math></p>
 </blockquote>
 <p>Les équations seront transformées au format MathML. Par ailleurs, s’il y a au moins une équation dans la page, la librairie <a href="http://www.mathjax.org/">MathJax</a> sera chargée afin que les équations soient correctement rendues sur tous les navigateurs.</p>
 <h1 id="ponctuation-intelligente"><span class="header-section-number">13</span> Ponctuation intelligente</h1>
 <p>L’option ponctuation intelligente de <em>pandoc</em><a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> est active. Cette dernière gère les points de suspensions (…), les tirets semi-cadratins (–), les tirets cadratins (—) et les guillemets anglais (“”).</p>
-<p>Par exemple :</p>
+<p>Par exemple :</p>
 <pre><code>--  ---   ...  &quot;test&quot;</code></pre>
 <p>produira</p>
 <blockquote>
@@ -635,7 +636,7 @@ $$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$</code></pre>
 <h1 id="références-bibliographiques"><span class="header-section-number">14</span> Références bibliographiques</h1>
 <p>On peut ajouter une référence bibliographique au texte. Par exemple, le pacakge <em>TraMineR</em> permet d’analyser des séquences <span class="citation" data-cites="gabadinho:2011analyzing">(Gabadinho et al. 2011)</span>. Pour plus de détails sur la syntaxe, voir <a href="http://johnmacfarlane.net/pandoc/README.html#citations">http://johnmacfarlane.net/pandoc/README.html#citations</a>.</p>
 <p>Il faut soit que les sources bibliographiques soit ajouter au format YAML dans votre fichier <em>R markdown</em>.</p>
-<p>Une autre option consiste à utiliser <em>zotxt</em> pour lier votre document à votre base Zotero. Pour cela, vous devrez ajouer l’option <code>- zotxt:'yes'</code> à votre YAML d’en-tête (voir <a href="#config_yaml">section</a>). Il importera également que Zotero soit ouvert lorsque vous lancer <strong>Knit HTML</strong>.</p>
+<p>Une autre option consiste à utiliser <em>zotxt</em> pour lier votre document à votre base Zotero. Pour cela, vous devrez ajouter l’option <code>- zotxt:'yes'</code> à votre YAML d’en-tête (voir <a href="#config_yaml">section</a>). Il importera également que Zotero soit ouvert lorsque vous lancer <strong>Knit HTML</strong>.</p>
 <p>Enfin, vous pouvez utilisez la fonction <em>zotxt2yaml</em> pour extraire avec <em>zotxt</em> les références citées dans votre document et générer le YAML correspondant.</p>
 <div class="references">
 <p>Gabadinho, Alexis, Gilbert Ritschard, Nicolas S. Müller, and Matthias Studer. 2011. “Analyzing and Visualizing State Sequences in R with TraMineR.” <em>Http://www.Jstatsoft.Org/V40/I04/Paper</em> (April 7).</p>
