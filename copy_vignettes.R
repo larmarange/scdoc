@@ -1,4 +1,7 @@
 library(scdoc)
-scdoc("./vignettes/Mode_d_emploi.html")
+scdoc("./vignettes/Mode_d_emploi.md")
 file.copy("./vignettes/Mode_d_emploi.html","./inst/doc/Mode_d_emploi.html", overwrite = TRUE)
 file.copy("./vignettes/Mode_d_emploi.pdf","./inst/doc/Mode_d_emploi.pdf", overwrite = TRUE)
+scdoc("./vignettes/How_to_use.md")
+file.copy("./vignettes/How_to_use.html","./inst/doc/How_to_use.html", overwrite = TRUE)
+file.copy("./vignettes/How_to_use.pdf","./inst/doc/How_to_use.pdf", overwrite = TRUE)

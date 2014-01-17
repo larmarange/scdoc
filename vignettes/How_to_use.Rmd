@@ -1,0 +1,544 @@
+---
+lang: 'en'
+title:  "scdoc: long scientific documents within R Studio"
+subtitle: "How to use"
+author:
+  - Joseph Larmarange
+date: '`r format(Sys.time(), "%Y-%m-%d")`'
+tags: R, R Studio, knitr, pandoc, Prince XML
+toc-title: 'table of contents'
+tof-title: 'List of figures'
+prefix-fig: 'Figure'
+tot-title: 'List of tables'
+prefix-table: 'Table'
+title-biblio: 'References'
+pdf: 'prince'
+abstract: |
+  With *scdoc*, you can combine several powerful tools to write a long scientific 
+  document directly within *R Studio* using *markdown*. Compared to the native support
+  of *R markdown* in *R Studio*, *scdoc* adds:
+  
+  - automatic numbering of titles, tables and figures;
+  - automatically generated list of contents, list of tables and list of figures;
+  - add automatically the appropriate number to internal links to a title, a table or a figure;
+  - smart punctuation;
+  - production of an HTML version with a modern design, an easy navigation and 
+  footnotes presented as side-notes;
+  - production of a PDF version with a classic design and page numbers added 
+  to internal links.
+...
+
+```{r configuration, echo=FALSE, message=FALSE}
+opts_chunk$set(
+  comment = NA, # No ## before the results
+  dev = "svg", # Plots in SVG
+  cache = TRUE, 
+  fig.width = 8, fig.height = 6 # default size for figures
+)
+options(
+  knitr.table.format = "html", # Tables in HTML (kable)
+  xtable.type = "html", # Tables in HTML (xtable)
+  xtable.caption.placement = "top" # Caption on top of the table (xtable)
+)
+knit_hooks$set(plot = hook_plot_html) # Figures directly in HTML
+windowsFonts(sans=windowsFont("Open Sans")) # Default font for plots
+```
+
+# About *scdoc*
+
+*scdoc* is developed by Joseph Larmarange on GitHub<i class="icon-github-circled"></i>:<br />
+<https://github.com/larmarange/scdoc>
+
+For questions, bugs or feature requests:<br />
+<https://github.com/larmarange/scdoc/issues>
+
+# Pre-requisite
+
+To works properly, *scdoc* needs that several tools are installed on your computer.
+
+## R Studio
+
+First, *scdoc* is principally designed to be used with the *R Studio*, an
+integrated development environment (IDE) for *R*. *R Studio* is available
+for Windows, Mac OS and Linux on <http://www.rstudio.com/ide/>.
+
+## pandoc
+
+*scdoc* uses *pandoc* to convert a *markdown* file to *HTML*. 
+*pandoc* could be downloaded on <http://johnmacfarlane.net/pandoc/installing.html>.
+*pandoc* needs to be accessible as command-line tool^[On Windows, you will probably have
+to add manually the path to *pandoc* to the system `path` variable.
+To test if *pandoc* is available as command-line, open a *command prompt* and 
+type `pandoc --help`. If you get an error (command not recognized), search for
+the directory where is located the file `pandoc.exe` (something like 
+`C:\Users\mon_nom\AppData\Local\Pandoc\`). Add this directory to the Windows
+system `path` (see <http://www.computerhope.com/issues/ch000549.htm>).]. 
+NB: due to changes in *pandoc*, please use a recent version (≥ 1.12).
+
+## Prince XML
+
+*Prince XML* is used to generate the PDF version of your document
+^[Generating a PDF is optional, see [section](#params).].
+It could be downloaded from <http://www.princexml.com/download/>. 
+*Prince XML* should also be available as a command-line tool^[On Windows, the directory
+`C:\Program Files (x86)\Prince\Engine\bin` should be added to the system `path`.].
+
+## zotxt
+
+You can insert *Zotero* references within your R markdown file. For that, you will
+need to install *zotxt* and *pandoc-zotxt*:
+
+- Install the Firefox add-on *zotxt* (<https://addons.mozilla.org/fr/firefox/addon/zotxt/>)
+- *Python* should be available on your computer (to install it, cf. <http://www.python.org/download/>)
+- Install *pip* <http://www.pip-installer.org/en/latest/installing.html>
+- Type and execute the command `pip install pandoc-zotxt` (in a prompt window or 
+  with the function  `system` within R)
+
+# Installing scdoc
+
+In *R*, execute the following command:
+
+```{r eval=FALSE}
+if (!require(devtools)){
+    install.packages('devtools')
+    library(devtools)
+}
+install_github("scdoc","larmarange")
+```
+
+
+# Utilisation
+
+When staring a new R session, execute the following commands:
+
+```{r, eval=FALSE}
+require(scdoc)
+scdoc()
+```
+
+That's all! Edit your *R markdown* (`.Rmd`) in *R Studio*.
+Click on  **Knit HTML** to produce the HTML^[The HTML file
+is self-contained and can be easily shared.]
+(and PDF if required) version of your document.
+
+# Parameters of the document {#params}
+
+Note: you can use this document as a model for your owns.
+
+## YAML metadata bloc {#config_yaml}
+
+Several options can be define at the beginning of your document in a 
+[YAML](http://fr.wikipedia.org/wiki/YAML) bloc. To be recognized by *scdoc*, this 
+bloc^[See as an example
+<https://github.com/larmarange/scdoc/blob/master/How_to_use.Rmd>.] must
+start by a line containing only `---` and end by a line containing only `...`. 
+All parameters are optional.
+
+
+Table: Parameters of the YAML metadata bloc
+
+------------  ------------------------------------------------------------------
+lang          Lang of your document in ISO alpha 2 format,
+              `'en'` for English, `'fr'` for French...
+
+title         Title of your document
+
+author        Author(s) (several entries allowed)
+
+date          Date of your document (formatted as YYYY-MM-DD, to generate
+              automatically the date of the current day, indicate
+              <code>'\`​r format(Sys.time(), "%Y-%m-%d")\`'</code>)
+
+tags          Key-words
+
+abstract      Abstract (should start by `|` for a abstract with several
+              paragraphs, each paragraph being indented)
+
+toc-title     Title for the table of contents
+
+tof-title     Title for the table of figures
+
+tot-title     Title for the table of tables
+
+prefix-fig    Prefix for figures numbering (default: *Figure*)
+
+prefix-table  Prefix for tables numbering (default: *Table*)
+
+pdf           To generate a PDF version of your document with *Prince XML*, this
+              option should be equal to `'prince'`
+------------  ------------------------------------------------------------------
+
+## Other parameters {#config_others}
+
+It is recommended to add the following code at the beginning of your document:
+
+~~~~~~
+```{r configuration, echo=FALSE, message=FALSE}
+opts_chunk$set(
+  comment = NA, # No ## put before source code output
+  dev = "svg", # Plots in SVG (usually rendering better in PDF)
+  cache = TRUE, # Cache
+  fig.width = 8, fig.height = 6 # Default size for plots
+)
+options(
+  knitr.table.format = "html", # Tables directly in HTML (kable)
+  xtable.type = "html", # Tables in HTML (xtable)
+  xtable.caption.placement = "top" # Caption at the top of tables (xtable)
+)
+knit_hooks$set(plot = hook_plot_html) # Figures directly in HTML
+windowsFonts(sans=windowsFont("Open Sans")) # Default font for plots
+```
+~~~~~~
+
+Options defined through `opts_chunk$set` are optional. You can adapt them according 
+to your needs. For plots, we recommend SVG as the result is better when producing
+a PDF file (SCG is also correctly interpreted by modern browsers).
+
+`options(knitr.table.format = "html")` and `knit_hooks$set(plot = hook_plot_html)`
+are required for providing adequately an identifier and a title to tables and figures
+(see [section](#tables) and [section](#figures) for more details).
+`xtable.type` and `xtable.caption.placement` are required only if you use
+*xtable* package.
+
+`windowsFonts(sans=windowsFont("Open Sans"))` is optional and allows you to specify
+the default font used by R for plots.
+
+# Markdown
+
+As *scdoc* uses *pandoc* to generate an HTML file, you can use all markdown extensions
+implemented in *pandoc*, see <http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown>.
+You can also write directly HTML code that will be preserved.
+
+# Titles and internal links
+
+Titles are automatically numbered. You can specify that a specific title should not
+be numbered by adding the specific CSS class `.unnumbered`.
+
+```
+## Unnumbered title {.unnumbered}
+```
+
+will produce
+
+## Unnumbered title {.unnumbered}
+
+To create an internal link to a title, you need first to attribute an unique 
+identifier to it:
+
+```
+## Title with an identifier {#id_title}
+```
+
+will produce
+
+## Title with an identifier {#id_title}
+
+Use this identifier to create an internal link.
+
+```
+See [section](#id_title).
+```
+
+will produce
+
+> See [section](#id_title).
+
+You can notice that the number of the title has been automatically added to the 
+link (and the page number in the PDF version).
+
+# Include R chunks
+
+## Code bloc
+
+~~~~~~~~~
+```{r}
+summary(cars)
+```
+~~~~~~~~~
+
+will produce
+
+```{r}
+summary(cars)
+```
+
+Another example:
+
+~~~~~~~~~
+```{r}
+summary(cars)
+str(cars)
+sum(cars$speed)
+```
+~~~~~~~~~
+
+```{r}
+summary(cars)
+str(cars)
+sum(cars$speed)
+```
+
+For more details, see <http://yihui.name/knitr/>.
+
+## Inline code
+
+You can insert R code directly in a text with the following syntax:<br />
+<code>\`r ... some R code ... \`</code>
+
+~~~~~~~~~~
+The sum of 3 plus 4 is equal to `r 3+4`.
+~~~~~~~~~~
+
+will produce
+
+> The sum of 3 plus 4 is equal to `r 3+4`.
+
+# Tables {#tables}
+
+Tables are automatically numbered and a table of tables is automatically generated.
+Prefix for tables numbers and the title of the list of tables are customizable
+(see [chapter](#config_yaml)).
+
+Several functions and R packages can produce correctly formatted tables in HTML.
+For each package, we detail how to define an identifier and/or a caption.
+An identifier is required to create an internal link, for example:
+
+```
+See [table](#example_kable).
+```
+
+will produce
+
+> See [table](#example_kable).
+
+## Function kable
+
+You need a recent version of *knitr* (≥ 1.5.15) to be able to define a caption.
+The last version of *knitr* can be installed with the following command:
+
+```{r, eval=FALSE}
+require(devtools)
+install_github('knitr', 'yihui')
+```
+
+First, you need to calculate your table (with a function like `table` or
+`xtabs`).
+
+```{r}
+data(Titanic)
+d <- as.data.frame(Titanic)
+tab <- xtabs(Freq~Class+Survived, data=d)
+```
+
+Then, you need to call the function `kable` in a chunk with the option
+`results='asis'` in order that the HTML code produced by `kable` will be include as is.
+It is also important to force *knitr* to generate tables in HTML
+(`options(knitr.table.format = "html")`, see [section](#config_others)).
+
+The `caption` argument (optional) allows to define a title for the table.
+To add an identifier, you will use the `table.attr` argument. Finally,
+you can specify text alignment for each column with `align`.
+
+```{r, results='asis'}
+kable(tab, table.attr = 'id="example_kable"', 
+      caption = "Table generated with kable", 
+      align = c('l','r','r'))
+```
+
+
+## xtable package
+
+The *xtable* package can also generate HTML tables.
+It is recommended to specify the options `xtable.type` and `xtable.caption.placement`
+at the beginning of your document (see [section](#config_others)).
+
+As for `kable`, `xtable` should be called in a chunk with the option
+`results='asis'`. The syntax to generate a table is:
+
+```{r, results='asis', message=FALSE}
+require(xtable)
+xtable(tab, caption="Table generated with xtable", 
+       label="example_xtable", 
+       align=c("lrr"))
+```
+
+## tables package
+
+You need a recent version of *tables* (0.7.67 or more). The last version could
+be installed with the following command:
+
+```{r, eval=FALSE}
+install.packages("tables", repos="http://R-Forge.R-project.org")
+```
+
+First, the table will be calculated with the function `tabular` (see 
+`?tabular` for more details):
+
+```{r, message=FALSE}
+require(tables)
+tab2 <- tabular( (Species + 1) ~ (n=1) + Format(digits=2)*
+         (Sepal.Length + Sepal.Width)*(mean + sd), data=iris )
+```
+
+The table will be converted in HTML with the function `html`. This function 
+needs to be called in a chunk with the option `results='asis'`. A specificity 
+of *tables* is that the title need to be defined with the function `table_options` 
+before calling `html`. It is recommended to reset this option to `NULL` just after
+to avoid undesired title for the following tables.
+
+```{r, results='asis'}
+table_options(HTMLcaption = 'Tableau généré avec tabular et html') 
+html(tab2, id='exemple_tabular')
+table_options(HTMLcaption = NULL) 
+```
+
+# Plots {#figures}
+
+According to HTML 5, the tag `<figure>` should be used to embed images or other 
+medias. One figure can contain several plots. The title of a figure should be
+defined with `<figcaption>`.
+
+Figures are automatically numbered and a table of figures is automatically generated.
+Prefix for figures numbers and the title of the list of figures are customizable
+(see [chapter](#config_yaml)).
+
+`<figure>` and `<figcaption>` will be directly written in the markdown file.
+(NB: this approach will work only if the option 
+`knit_hooks$set(plot = hook_plot_html)` has been defined at the beginning of 
+your document, see [section](#config_others).)
+
+~~~~~~~~~
+<figure id="example_fig">
+```{​r, echo=FALSE}
+plot(cars)
+```
+<figcaption>Figure title</figcaption>
+</figure>
+~~~~~~~~~
+
+will produce
+
+<figure id="example_fig">
+```{r, echo=FALSE}
+plot(cars)
+```
+<figcaption>Figure title</figcaption>
+</figure>
+
+Adding an identifier is required if you want to create an internal link. For example:
+
+```
+See [figure](#example_fig).
+```
+
+will produce
+
+> See [figure](#example_fig).
+
+A plot created outside a `<figure>` tag will not be added to the table of figures.
+
+~~~~~~~~~
+```{​r, echo=FALSE}
+plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10,
+     main = "rpois(100, lambda = 5)")
+```
+~~~~~~~~~
+
+will produce
+
+```{r, echo=FALSE}
+plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10,
+     main = "rpois(100, lambda = 5)")
+```
+
+# Footnotes
+
+```
+This is a text^[with a footnote].
+```
+
+will produce
+
+> This is a text^[with a footnote].
+
+Several syntax can be used with *pandoc* to generate footnotes
+(see <http://johnmacfarlane.net/pandoc/README.html#footnotes> for more details).
+
+# Equations
+
+You can write LaTeX equations.
+
+```
+$\alpha+\beta=\gamma$
+$$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$
+```
+
+will produce
+
+> $\alpha+\beta=\gamma$
+> $$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$
+
+Equations are transformed in MathML. If there is at least one equation in the document,
+[MathJax](http://www.mathjax.org/) will be automatically loaded to display properly equations
+with all browsers.
+
+# Smart punctuation
+
+Smart punctuation option of *pandoc*
+^[<http://johnmacfarlane.net/pandoc/README.html#smart-punctuation>]
+is used. *pandoc* will produce typographically correct output, 
+converting straight quotes (`""`) to curly quotes (""), `---` to em-dashes (---),
+`--` to en-dashes (--), and `...` to ellipses (...). Non-breaking spaces are inserted 
+after certain abbreviations, such as “Mr.”.
+
+~~~~~~
+--  ---   ...  "test"
+~~~~~~
+
+will produce
+
+> --  ---   ...  "test"
+  
+# Bibliographic references
+
+You can add bibliographic references in your text. For example, *TraMineR* package
+is useful to analyze sequences [@gabadinho:2011analyzing]. For more details, 
+see <http://johnmacfarlane.net/pandoc/README.html#citations>.
+
+You need to add your bibliography as a YAML bloc in your *R markdown* file.
+
+It is also possible to use *zotxt* in order to automatically retrieve references
+from your Zotero database. Simply add the option `- zotxt:'yes'` in your YAML metadata 
+bloc at the beginning of your document (see [section](#config_yaml)). In this case,
+Zotero should be running when you click on **Knit HTML**.
+
+Another option is to use the function `zotxt2yaml` provided by *scdoc* to extract,
+with *zotxt* the references cited in your document and to generate the YAML of
+your bibliography before to copy and paste it in your document.
+
+---
+references:
+-
+  title: Analyzing and Visualizing State Sequences in R with TraMineR
+  id: gabadinho:2011analyzing
+  issued:
+    day: 7
+    month: 4
+    year: 2011
+  author:
+  - given:
+    - Alexis
+    family: Gabadinho
+  - given:
+    - Gilbert
+    family: Ritschard
+  - given:
+    - Nicolas
+    - S.
+    family: "Müller"
+  - given:
+    - Matthias
+    family: Studer
+  container-title: http://www.jstatsoft.org/v40/i04/paper
+  type: article-journal
+...
