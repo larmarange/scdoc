@@ -1,6 +1,8 @@
 scdoc
 =====
 
+**WARNING: this project is out-of-date considering that R Studio released rmarkdown.**
+
 Long scientific documents with R, R Studio, knitr, pandoc, prince XML and zotxt.
 
 Documents longs (scientifiques) avec R, R Studio, knitr, pandoc, prince XML et zotxt.
